@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medicine Update</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+<h1>Medicine Update</h1>
+
+<!-- Form to Update Medicine Details -->
+<form id="medicineForm" action="/medicines/update" method="post">
+  <div id="medicineDetails">
+    <!-- Initial Row -->
+    <div class="medicineRow">
+      <label>Medicine Name:</label>
+      <select name="medicineName" class="medicineName">
+        <!-- Picklist values will be populated here -->
+      </select>
+      <br>
+      <label>Quantity Available Today:</label>
+      <input type="number" name="quantityAvailableToday" class="quantityAvailableToday" step="0.01">
+      <br>
+      <label>Consumption Per Day:</label>
+      <input type="number" name="consumptionPerDay" class="consumptionPerDay" step="0.01">
+      <br>
+      <label>Consumption Per Month:</label>
+      <input type="number" name="consumptionPerMonth" class="consumptionPerMonth" step="0.01">
+      <br><br>
+    </div>
+  </div>
+<!--  <button type="button" onclick="addMedicineRow()">Add Row</button>-->
+  <button type="submit">Update Medicine</button>
+</form>
+
+<script>
+  // Function to add a new row for medicine details
+  // function addMedicineRow() {
+  //   var newRow = $(".medicineRow").first().clone(); // Clone the first row
+  //   newRow.find("input, select").val(""); // Clear input values
+  //   $("#medicineDetails").append(newRow); // Append the new row to the form
+  // }
+
+  // Function to populate the picklist values
+  function populateMedicineNames() {
+    $.get("/medicines/names", function(data) {
+      var picklist = $(".medicineName"); // Get all picklist elements
+      picklist.empty(); // Clear previous options
+      $.each(data, function(index, value) {
+        picklist.append($("<option>").text(value)); // Add new option
+      });
+    });
+  }
+
+  // Populate picklist values on page load
+  $(document).ready(function() {
+    populateMedicineNames();
+  });
+</script>
+</body>
+</html>
