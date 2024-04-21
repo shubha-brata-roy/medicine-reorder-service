@@ -6,6 +6,7 @@ import com.royhome.medicinereorderservice.dtos.MedicineRequestDto;
 import com.royhome.medicinereorderservice.models.MedicineInventory;
 import com.royhome.medicinereorderservice.repositories.MedicineRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -99,6 +100,7 @@ public class MedicineService {
         return returnList;
     }
 
+    @Transactional
     public List<MedicineInventory> saveOrderedMedicines(List<MedicineOrderedDto> records) {
         List<MedicineInventory> returnList = new ArrayList<>();
 

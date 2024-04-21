@@ -101,6 +101,7 @@ public class MedicineController {
 
     /************************** Upload using Excel code ********************************/
 
+
     @PostMapping("/upload")
     public ResponseEntity<String> uploadExcel(@RequestParam("file") MultipartFile file) {
         try {
@@ -135,6 +136,9 @@ public class MedicineController {
         } catch (IOException e) {
             e.printStackTrace();
             return new ResponseEntity<>("Failed to upload file", HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("There is a mismatch with the Excel Upload Columns, only upload with Medicine Name, Quantity Per Unit and Reorder Units columns and delete the rest.", HttpStatus.BAD_REQUEST);
         }
     }
 
